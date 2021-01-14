@@ -3,13 +3,6 @@ import {Card,CardContent,Typography,Grid} from '@material-ui/core';
 import CountUp from 'react-countup';
 import classn from 'classname';
 import styles from './Cards.module.css';
-/*
-function Cards() {
-    return(
-        <h1>Cards</h1>
-    );
-}
-*/
 
 const Cards = ({data : {confirmed , recovered , deaths , lastUpdate}}) => {
     if(!confirmed)
