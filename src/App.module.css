@@ -1,0 +1,43 @@
+body{
+    margin:0;
+    padding: 0;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.image{
+    height:10%;
+    width:23%;
+    margin-top: 2rem;
+}
+
+.footer{
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 1rem 0;
+    color: #707070;
+}
+
+.footer a{
+    text-decoration: none;
+}
+
+@media (max-width:900px )
+{
+    .image{
+        width:30%;
+    }
+}
+
+@media (max-width:550px)
+{
+    .image{
+        width: 50%;
+        height: 18%;
+    }
+}
