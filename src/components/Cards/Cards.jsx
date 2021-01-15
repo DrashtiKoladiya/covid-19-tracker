@@ -5,10 +5,6 @@ import classn from 'classname';
 import styles from './Cards.module.css';
 
 const Cards = ({data : {confirmed , recovered , deaths , lastUpdate}}) => {
-    if(!confirmed)
-    {
-        return "Loading..";
-    }
     return(
         <div className={styles.container}>
             <Grid container spacing={1} justify='center'>

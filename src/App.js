@@ -3,7 +3,8 @@ import Axios from 'axios';
 import {Cards,Chart,CountryPicker} from './components';
 import styles from './App.module.css';
 import url from './Url.js';
-import Covid from './images/covid.png'
+import Covid from './images/covid.png';
+import Loader from './components/Loader/Loader.js';
 
 class App extends React.Component{
     constructor(){
@@ -13,21 +14,26 @@ class App extends React.Component{
             country:""
         }
         this.handleCountryChange = this.handleCountryChange.bind(this);
-        //console.log("connn");
     }
 
-    componentDidMount()
-    {
-        Axios.get(url).then(({data}) =>{
-                const newData = {
-                    confirmed:data.confirmed,
-                    recovered:data.recovered,
-                    deaths:data.deaths,
-                    lastUpdate:data.lastUpdate
-                };
-                this.setState({data:newData});  
-            });
-            //console.log("Main mount");
+    componentDidMount(){
+        let Timeout=0;
+        if(!(this.state.data.confirmed)){
+            Timeout=3000;
+        }
+        setTimeout(
+            () => {
+               Axios.get(url).then(({data}) =>{
+                   const newData = {
+                       confirmed:data.confirmed,
+                       recovered:data.recovered,
+                       deaths:data.deaths,
+                       lastUpdate:data.lastUpdate
+                   }; 
+                   this.setState({data:newData}); 
+               })
+           }
+        ,Timeout);
     }
 
     handleCountryChange = (country) => {
@@ -52,11 +58,15 @@ class App extends React.Component{
         const {data,country} = this.state;
         return(
             <div className={styles.container}>
-                <img src={Covid} className={styles.image} alt="Covid-19" />
-                <Cards data={this.state.data}/>
-                <CountryPicker handleCountryChange={this.handleCountryChange}/>
-                <Chart data={data} country={country}/>
-                <footer className={styles.footer}>Made with ❤ By <a href="https://github.com/DrashtiKoladiya">Drashti Koladiya</a></footer>
+                {!data.confirmed ? <Loader /> :
+                    <> 
+                        <img src={Covid} className={styles.image} alt="Covid-19" />
+                        <Cards data={data}/>
+                        <CountryPicker handleCountryChange={this.handleCountryChange}/>
+                        <Chart data={data} country={country}/>
+                        <footer className={styles.footer}>Made with ❤ By <a href="https://github.com/DrashtiKoladiya">Drashti Koladiya</a></footer>
+                    </>
+                }
             </div>
         );
     };
