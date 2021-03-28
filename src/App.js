@@ -19,7 +19,7 @@ class App extends React.Component{
     componentDidMount(){
         let Timeout=0;
         if(!(this.state.data.confirmed)){
-            Timeout=3000;
+            Timeout=2500;
         }
         setTimeout(
             () => {
